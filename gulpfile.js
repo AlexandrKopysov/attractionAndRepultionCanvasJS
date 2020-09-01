@@ -69,6 +69,12 @@ function css(){
       outputStyle:"expanded"
     })
   )
+  .pipe(
+    autoprefixer({
+      overrideBrowserslist:["last 5 versions"],
+      cascade: true
+    })
+  )
   .pipe(dest(path.bild.css))
   .pipe(browsersync.stream())
 }
