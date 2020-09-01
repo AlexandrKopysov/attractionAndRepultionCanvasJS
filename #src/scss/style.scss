@@ -34,3 +34,48 @@ body {
     background-position: center;
     background-size: cover;    
 }
+
+.utp {
+  margin: 340px 100px 100px 100px;
+  hr{
+    width: 150px;
+    height: 5;
+    margin-left: -20px;
+    line-height: 1;
+    margin-top: 0px;
+  }
+  .textUtp{
+    font-size: 14px;
+    margin: 30px 0 0 60px;
+    letter-spacing: 1px;
+  }
+
+  .zaglavUtp1{
+    font-size: 64px;
+    line-height: 0.4;
+    opacity: 0.6;
+    font-weight: bold;
+    letter-spacing: 7px;
+  }
+  .zaglavUtp2{
+    font-size: 100px;
+    line-height: 1.5;
+    font-weight: bold;
+  }
+
+  .button{
+    margin-left: 60px;
+    height: 80px;
+    width: 350px;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #fff;
+  }
+}
+
+
+
+.line{
+
+}
+

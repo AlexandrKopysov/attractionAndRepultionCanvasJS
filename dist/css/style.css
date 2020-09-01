@@ -35,6 +35,47 @@ h6 {
   background-size: cover;
 }
 
+.utp {
+  margin: 340px 100px 100px 100px;
+}
+
+.utp hr {
+  width: 150px;
+  height: 5;
+  margin-left: -20px;
+  line-height: 1;
+  margin-top: 0px;
+}
+
+.utp .textUtp {
+  font-size: 14px;
+  margin: 30px 0 0 60px;
+  letter-spacing: 1px;
+}
+
+.utp .zaglavUtp1 {
+  font-size: 64px;
+  line-height: 0.4;
+  opacity: 0.6;
+  font-weight: bold;
+  letter-spacing: 7px;
+}
+
+.utp .zaglavUtp2 {
+  font-size: 100px;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+.utp .button {
+  margin-left: 60px;
+  height: 80px;
+  width: 350px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #fff;
+}
+
 .webp .main_background {
   background-image: url(/img/img2.webp);
 }
