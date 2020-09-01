@@ -2,22 +2,22 @@ const fileinclude = require('gulp-file-include');
 
 let project_folder = "dist"; //Папкп передается заказчику
 let source_folder = "#src"; //Исходники
-let path={
-  bild:{
-    html: project_folder+"/",
+let path = {
+  bild: {
+    html: project_folder + "/",
     css: project_folder + "/css/",
     js: project_folder + "/js/",
     img: project_folder + "/img/",
     fonts: project_folder + "/fonts/",
   },
-  src:{
-    html: [source_folder+"/*.html" , "!" + source_folder +"/_*.html" ],
+  src: {
+    html: [source_folder + "/*.html", "!" + source_folder + "/_*.html"],
     css: source_folder + "/scss/style.scss",
     js: source_folder + "/js/script.js",
     img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
     fonts: source_folder + "/fonts/*.ttf",
   },
-  watch:{
+  watch: {
     html: source_folder + "/**/*.html",
     css: source_folder + "/scss/**/*.scss",
     js: source_folder + "/js/**/*.js",
@@ -26,57 +26,69 @@ let path={
   clean: "./" + project_folder + "/"
 }
 
-let {src, dest} = require('gulp'),
+let { src, dest } = require('gulp'),
   gulp = require('gulp'),
   browsersync = require("browser-sync").create(),
   fileinclude1 = require("gulp-file-include"),
   del = require("del"),
-  scss = require("gulp-sass");
+  scss = require("gulp-sass"),
+  autoprefixer = require("gulp-autoprefixer"),
+  group_media = require("gulp-group-css-media-queries"),
+  clean_css = require("gulp-clean-css"),
+  rename = require("gulp-rename");
 
 
-function browserSync(params){
+function browserSync(params) {
   browsersync.init({
-    server:{
+    server: {
       baseDir: "./" + project_folder + "/"
     },
     port: 3000,
-    notify:false      
+    notify: false
   })
 }
 
 
 
-function html(){
+function html() {
   return src(path.src.html)
-  .pipe(fileinclude1())
-  .pipe(dest(path.bild.html))
-  .pipe(browsersync.stream())
+    .pipe(fileinclude1())
+    .pipe(dest(path.bild.html))
+    .pipe(browsersync.stream())
 }
 
-function watchFiles(param){
+function watchFiles(param) {
   gulp.watch([path.watch.html], html);
   gulp.watch([path.watch.css], css);
 }
 
-function clean(params){
+function clean(params) {
   return del(path.clean);
 }
 
-function css(){
+function css() {
   return src(path.src.css)
-  .pipe(
-    scss({
-      outputStyle:"expanded"
-    })
-  )
-  .pipe(
-    autoprefixer({
-      overrideBrowserslist:["last 5 versions"],
-      cascade: true
-    })
-  )
-  .pipe(dest(path.bild.css))
-  .pipe(browsersync.stream())
+    .pipe(
+      scss({
+        outputStyle: "expanded"
+      })
+    )
+    .pipe(group_media())
+    .pipe(
+      autoprefixer({
+        overrideBrowserslist: ["last 5 versions"],
+        cascade: true
+      })
+    )
+    .pipe(dest(path.bild.css))
+    .pipe(clean_css())
+    .pipe(
+      rename({
+        extname: ".min.css"
+      })
+    )
+    .pipe(dest(path.bild.css))
+    .pipe(browsersync.stream())
 }
 
 let bild = gulp.series(clean, gulp.parallel(css, html));
